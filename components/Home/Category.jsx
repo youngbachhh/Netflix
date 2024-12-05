@@ -1,13 +1,14 @@
 import { View, Text, FlatList } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Colors } from "@/constants/Colors";
-import { useState } from "react";
 import { collection, query, getDocs } from "firebase/firestore";
 import { db } from "@/configs/FirebaseConfig";
 import CategoryItem from "@/components/Home/CategoryItem";
+import { useRouter } from "expo-router";
 
 export default function Category() {
 	const [categoryList, setCategoryList] = useState([]);
+  const router = useRouter();
 
 	useEffect(() => {
 		getCategoryList();
@@ -30,7 +31,7 @@ export default function Category() {
 	return (
 		<View
 			style={{
-				padding: 20,
+				paddingTop: 20,
 			}}
 		>
 			<View
@@ -63,10 +64,18 @@ export default function Category() {
 			<FlatList
 				data={categoryList}
 				horizontal
-				style={{ marginRight: 10, marginTop: 20 }}
+				style={{ marginRight: 10, paddingTop: 10 }}
 				keyExtractor={(item) => item.id}
-        showsHorizontalScrollIndicator={false}
-				renderItem={({ item }) => <CategoryItem category={item} />}
+				showsHorizontalScrollIndicator={false}
+				renderItem={({ item }) => (
+					<CategoryItem
+						onCategoryPress={(item) => {
+							console.log(item);
+              router.push(`/businesslist/${item.name}`);
+						}}
+						category={item}
+					/>
+				)}
 			></FlatList>
 		</View>
 	);

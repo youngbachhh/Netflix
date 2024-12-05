@@ -1,10 +1,19 @@
-import { View, Text, Image } from "react-native";
+import {
+	View,
+	Text,
+	Image,
+	TouchableNativeFeedback,
+	TouchableOpacity,
+} from "react-native";
 import React from "react";
 import { Colors } from "@/constants/Colors";
 
-export default function CategoryItem({ category }) {
+export default function CategoryItem({ category, onCategoryPress }) {
 	return (
-		<View style={{marginRight: 15}}>
+		<TouchableOpacity
+			onPress={() => onCategoryPress(category)}
+			style={{ marginRight: 15 }}
+		>
 			<View
 				style={{
 					padding: 12,
@@ -28,6 +37,6 @@ export default function CategoryItem({ category }) {
 			>
 				{category.name}
 			</Text>
-		</View>
+		</TouchableOpacity>
 	);
 }

@@ -31,7 +31,6 @@ export default function Slider() {
 				style={{
 					fontFamily: "kanit-bold",
 					fontSize: 20,
-					paddingLeft: 20,
 					paddingTop: 20,
 				}}
 			>
@@ -41,7 +40,7 @@ export default function Slider() {
 			<FlatList
 				data={sliderList}
 				horizontal
-				style={{ padding: 20 }}
+				style={{ paddingTop: 10, }}
 				renderItem={({ item }) => (
 					<Image
 						source={{ uri: item.imageUrl }}
