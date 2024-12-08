@@ -13,5 +13,5 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
-, "components/Home/Slider.jsx", "app/(tabs)/home.jsx"  ]
+, "components/Home/Slider.jsx", "app/(tabs)/home.jsx", "app/(tabs)/explore.jsx"  ]
 }
