@@ -6,9 +6,9 @@ import { db } from "@/configs/FirebaseConfig";
 import CategoryItem from "@/components/Home/CategoryItem";
 import { useRouter } from "expo-router";
 
-export default function Category() {
+export default function Category({ explore = false, onCategorySelect }) {
 	const [categoryList, setCategoryList] = useState([]);
-  const router = useRouter();
+	const router = useRouter();
 
 	useEffect(() => {
 		getCategoryList();
@@ -28,37 +28,48 @@ export default function Category() {
 		}
 	};
 
+  const onCategoryPressHandler = (item) => {
+    if(!explore) {
+      router.push(`/businesslist/${item.name}`);
+    }
+    else {
+      onCategorySelect(item.name);
+    }
+  };
+
 	return (
 		<View
 			style={{
 				paddingTop: 20,
 			}}
 		>
-			<View
-				style={{
-					display: "flex",
-					flexDirection: "row",
-					justifyContent: "space-between",
-				}}
-			>
-				<Text
+			{!explore && (
+				<View
 					style={{
-						fontSize: 20,
-						fontFamily: "kanit-bold",
+						display: "flex",
+						flexDirection: "row",
+						justifyContent: "space-between",
 					}}
 				>
-					Category
-				</Text>
-				<Text
-					style={{
-						color: Colors.PRIMARY,
-						fontFamily: "kanit-medium",
-						paddingTop: 8,
-					}}
-				>
-					View all
-				</Text>
-			</View>
+					<Text
+						style={{
+							fontSize: 20,
+							fontFamily: "kanit-bold",
+						}}
+					>
+						Category
+					</Text>
+					<Text
+						style={{
+							color: Colors.PRIMARY,
+							fontFamily: "kanit-medium",
+							paddingTop: 8,
+						}}
+					>
+						View all
+					</Text>
+				</View>
+			)}
 
 			{/* Category list here */}
 			<FlatList
@@ -70,8 +81,7 @@ export default function Category() {
 				renderItem={({ item }) => (
 					<CategoryItem
 						onCategoryPress={(item) => {
-							console.log(item);
-              router.push(`/businesslist/${item.name}`);
+							onCategoryPressHandler(item);
 						}}
 						category={item}
 					/>

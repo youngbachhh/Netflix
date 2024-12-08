@@ -19,7 +19,13 @@ export default function Business() {
 			const querySnapshot = await getDocs(q);
 
 			querySnapshot.forEach((doc) => {
-				setBusinessList((prev) => [...prev, doc.data()]);
+				setBusinessList((prev) => [
+					...prev,
+					{
+						id: doc?.id,
+						...doc.data(),
+					},
+				]);
 			});
 		} catch (error) {
 			console.error("Error fetching Business list: ", error);
@@ -58,6 +64,7 @@ export default function Business() {
 				style={{ paddingTop: 10 }}
 				data={businessList}
 				horizontal
+				showsHorizontalScrollIndicator={false}
 				renderItem={({ item }) => <BusinessCard business={item} />}
 			/>
 		</View>
