@@ -16,7 +16,7 @@ export default function explore() {
 	// }, []);
 
 	const getBusinessListByCategory = async (category) => {
-    setBusinessList([]);
+		setBusinessList([]);
 		const q = query(
 			collection(db, "Business"),
 			where("category", "==", category)
@@ -24,8 +24,7 @@ export default function explore() {
 		const querySnapshot = await getDocs(q);
 
 		querySnapshot.forEach((doc) => {
-			setBusinessList((prev) => [...prev, doc.data()]);
-      console.log(doc.data());
+			setBusinessList((prev) => [...prev, { id: doc.id, ...doc.data() }]);
 		});
 	};
 
@@ -75,7 +74,7 @@ export default function explore() {
 			/>
 
 			{/* Business List */}
-      <ExploreBusinessList businessList={businessList} />
+			<ExploreBusinessList businessList={businessList} />
 		</View>
 	);
 }
